@@ -13,3 +13,4 @@
 |*"[RMA: Rapid Motor Adaptation for Legged Robots](https://ashish-kmr.github.io/rma-legged-robots/)"*|RL|walk|[code](https://github.com/antonilo/rl_locomotion)/[video](https://www.youtube.com/watch?v=nBy1piJrq1A&t=2s)|
 |*"[A LITTLE LESS CONVERSATION, A LITTLE MORE ACTION, PLEASE: INVESTIGATING THE PHYSICAL COMMON-SENSE OF LLMS IN A 3D EMBODIED ENVIRONMENT](https://arxiv.org/abs/2410.23242)"*|LLM|various tasks|[code(only Animal-Ai)](https://github.com/Kinds-of-Intelligence-CFI/animal-ai)|
 |*"[ExploRLLM: Guiding Exploration in Reinforcement Learning with Large Language Models](https://arxiv.org/abs/2403.09583)"*|RL/LLM|grab objects|[code/video](https://explorllm.github.io/)|
+|*"[Agentic Skill Discovery](https://arxiv.org/abs/2405.15019)"*|RL/LLM|various tasks|[code/video](https://agentic-skill-discovery.github.io/)|
