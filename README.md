@@ -15,7 +15,10 @@
 |*"[ExploRLLM: Guiding Exploration in Reinforcement Learning with Large Language Models](https://arxiv.org/abs/2403.09583)"*|RL/LLM|grab objects|[code/video](https://explorllm.github.io/)|
 |*"[Agentic Skill Discovery](https://arxiv.org/abs/2405.15019)"*|RL/LLM|various tasks|[code/video](https://agentic-skill-discovery.github.io/)|
 | *[PLAN-SEQ-LEARN](https://arxiv.org/pdf/2405.01534)* | RL/LLM | Various tasks | [code/video](https://mihdalal.github.io/planseqlearn/) |
+|[Task and Motion Planning with Large Language Models for Object Rearrangement](https://arxiv.org/pdf/2303.06247) | | | | 
+| [Robotic Skill Acquisition via Instruction Augmentation with Vision-Language Models]| | | | 
 
 
 # Useful Resources
 [Github Repo - LLM in Robotics](https://github.com/GT-RIPL/Awesome-LLM-Robotics)
+[Github Repo - LLM in Robotics]
