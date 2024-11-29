@@ -1,0 +1,109 @@
+tools/train_ppo.py:15: UserWarning:
+The version_base parameter is not specified.
+Please specify a compatability version level, or None.
+Will assume defaults for version 1.1
+  @hydra.main(config_name="config", config_path="../configs/ppo")
+/home/jiang/anaconda3/envs/ccm/lib/python3.8/site-packages/hydra/_internal/defaults_list.py:251: UserWarning: In 'config': Defaults list is missing `_self_`. See https://hydra.cc/docs/1.2/upgrades/1.0_to_1.1/default_composition_order for more information
+  warnings.warn(msg, UserWarning)
+/home/jiang/anaconda3/envs/ccm/lib/python3.8/site-packages/hydra/_internal/defaults_list.py:415: UserWarning: In config: Invalid overriding of hydra/job_logging:
+Default list overrides requires 'override' keyword.
+See https://hydra.cc/docs/1.2/upgrades/1.0_to_1.1/defaults_list_override for more information.
+
+  deprecation_warning(msg)
+/home/jiang/anaconda3/envs/ccm/lib/python3.8/site-packages/hydra/_internal/hydra.py:119: UserWarning: Future Hydra versions will no longer change working directory at job runtime by default.
+See https://hydra.cc/docs/1.2/upgrades/1.1_to_1.2/changes_to_job_working_dir/ for more information.
+  ret = run_job(
+task:
+    name: FrankaPick
+    env:
+        numEnvs: 256
+        envSpacing: 1.5
+        episodeLength: 500
+        object_pos_init: [0.5, 0.0]
+        object_pos_delta: [0.1, 0.2]
+        goal_height: 0.8
+        obs_type: oracle
+        dofVelocityScale: 0.1
+        actionScale: 7.5
+        objectDistRewardScale: 0.08
+        liftBonusRewardScale: 4.0
+        goalDistRewardScale: 1.28
+        goalBonusRewardScale: 4.0
+        actionPenaltyScale: 0.01
+        asset:
+            assetRoot: assets
+            assetFileNameFranka: urdf/franka_description/robots/franka_panda.urdf
+    sim:
+        substeps: 1
+        physx:
+            num_threads: 4
+            solver_type: 1
+            num_position_iterations: 12
+            num_velocity_iterations: 1
+            contact_offset: 0.005
+            rest_offset: 0.0
+            bounce_threshold_velocity: 0.2
+            max_depenetration_velocity: 1000.0
+            default_buffer_size_multiplier: 5.0
+            always_use_articulations: False
+    task:
+        randomize: False
+train:
+    seed: 0
+    torch_deterministic: False
+    policy:
+        pi_hid_sizes: [256, 128, 64]
+        vf_hid_sizes: [256, 128, 64]
+    learn:
+        agent_name: franka_ppo
+        test: False
+        resume: 0
+        save_interval: 50
+        print_log: True
+        max_iterations: 2000
+        cliprange: 0.1
+        ent_coef: 0
+        nsteps: 32
+        noptepochs: 10
+        nminibatches: 4
+        max_grad_norm: 1
+        optim_stepsize: 0.001
+        schedule: cos
+        gamma: 0.99
+        lam: 0.95
+        init_noise_std: 1.0
+        log_interval: 1
+physics_engine: physx
+pipeline: gpu
+sim_device: cuda:0
+rl_device: cuda:0
+graphics_device_id: 0
+num_gpus: 1
+test: False
+resume: 0
+logdir: /home/jiang/RL/mvp-master/configs/ppo/log/ann
+cptdir:
+headless: False
+DEBUG!!! /home/jiang/RL/mvp-master/configs/ppo/log/ann
+Wrote config to: /home/jiang/RL/mvp-master/configs/ppo/log/ann/config.yaml
+Setting seed: 0
+Setting sim options
+num franka bodies:  11
+num franka dofs:  9
+Error executing job with overrides: ['task=FrankaPick']
+Traceback (most recent call last):
+  File "tools/train_ppo.py", line 38, in train
+    env = parse_task(cfg, cfg_dict, sim_params)
+  File "/home/jiang/RL/mvp-master/mvp/utils/hydra_utils.py", line 159, in parse_task
+    task = _TASK_MAP[cfg.task.name](
+  File "/home/jiang/RL/mvp-master/pixmc/tasks/franka_pick.py", line 87, in __init__
+    self.franka_default_dof_pos = to_torch(
+  File "/home/jiang/RL/mvp-master/IsaacGym_Preview_4_Package/isaacgym/python/isaacgym/torch_utils.py", line 16, in to_torch
+    return torch.tensor(x, dtype=dtype, device=device, requires_grad=requires_grad)
+RuntimeError: CUDA error: an illegal memory access was encountered
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.

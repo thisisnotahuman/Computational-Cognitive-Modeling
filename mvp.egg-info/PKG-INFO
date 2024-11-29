@@ -1,0 +1,7 @@
+Metadata-Version: 2.1
+Name: mvp
+Version: 0.1.0
+Summary: Masked Visual Pre-training for Motor Control
+Requires-Python: >=3.6
+Requires-Dist: iopath
+Requires-Dist: timm

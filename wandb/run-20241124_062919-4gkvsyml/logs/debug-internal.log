@@ -1,0 +1,10 @@
+{"time":"2024-11-24T06:29:19.750822249+08:00","level":"INFO","msg":"using version","core version":"0.18.7"}
+{"time":"2024-11-24T06:29:19.750848291+08:00","level":"INFO","msg":"created symlink","path":"/home/jiang/RL/mvp-master/wandb/run-20241124_062919-4gkvsyml/logs/debug-core.log"}
+{"time":"2024-11-24T06:29:19.858290456+08:00","level":"INFO","msg":"created new stream","id":"4gkvsyml"}
+{"time":"2024-11-24T06:29:19.858370475+08:00","level":"INFO","msg":"stream: started","id":"4gkvsyml"}
+{"time":"2024-11-24T06:29:19.858785603+08:00","level":"INFO","msg":"handler: started","stream_id":"4gkvsyml"}
+{"time":"2024-11-24T06:29:19.858919373+08:00","level":"INFO","msg":"writer: Do: started","stream_id":"4gkvsyml"}
+{"time":"2024-11-24T06:29:19.858931301+08:00","level":"INFO","msg":"sender: started","stream_id":"4gkvsyml"}
+{"time":"2024-11-24T06:29:20.126077655+08:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-11-24T06:30:05.592929014+08:00","level":"ERROR","msg":"HTTP error","status":404,"method":"POST","url":"https://api.wandb.ai/files/jxxxxxygoat/franka_pick_ann/4gkvsyml/file_stream"}
+{"time":"2024-11-24T06:30:05.592989111+08:00","level":"ERROR+4","msg":"filestream: fatal error: filestream: failed to upload: 404 Not Found path=files/jxxxxxygoat/franka_pick_ann/4gkvsyml/file_stream: {\"error\":\"run franka_pick_ann/4gkvsyml not found while streaming file\"}"}

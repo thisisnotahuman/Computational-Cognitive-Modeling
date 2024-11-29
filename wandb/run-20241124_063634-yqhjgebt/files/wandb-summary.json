@@ -1,0 +1,1 @@
+{"_timestamp":1.7324023611179633e+09,"_step":9999,"_wandb":{"runtime":1771},"Value function loss":121182.212890625,"_runtime":1771.823192306,"Mean episode length":476.57,"Mean reward":14834.087704098598,"Surrogate loss":-1.648440957069397e-08,"Mean success rate":96}

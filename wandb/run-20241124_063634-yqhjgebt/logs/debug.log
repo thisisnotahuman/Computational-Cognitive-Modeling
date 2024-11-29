@@ -1,0 +1,25 @@
+2024-11-24 06:36:34,394 INFO    MainThread:2517 [wandb_setup.py:_flush():79] Current SDK version is 0.18.7
+2024-11-24 06:36:34,394 INFO    MainThread:2517 [wandb_setup.py:_flush():79] Configure stats pid to 2517
+2024-11-24 06:36:34,394 INFO    MainThread:2517 [wandb_setup.py:_flush():79] Loading settings from /home/jiang/.config/wandb/settings
+2024-11-24 06:36:34,394 INFO    MainThread:2517 [wandb_setup.py:_flush():79] Loading settings from /home/jiang/RL/mvp-master/wandb/settings
+2024-11-24 06:36:34,394 INFO    MainThread:2517 [wandb_setup.py:_flush():79] Loading settings from environment variables: {}
+2024-11-24 06:36:34,394 INFO    MainThread:2517 [wandb_setup.py:_flush():79] Applying setup settings: {'mode': None, '_disable_service': None}
+2024-11-24 06:36:34,394 INFO    MainThread:2517 [wandb_setup.py:_flush():79] Inferring run settings from compute environment: {'program_relpath': 'mvp-master/tools/train_ppo.py', 'program_abspath': '/home/jiang/RL/mvp-master/tools/train_ppo.py', 'program': 'tools/train_ppo.py'}
+2024-11-24 06:36:34,394 INFO    MainThread:2517 [wandb_setup.py:_flush():79] Applying login settings: {}
+2024-11-24 06:36:34,394 INFO    MainThread:2517 [wandb_init.py:_log_setup():533] Logging user logs to /home/jiang/RL/mvp-master/wandb/run-20241124_063634-yqhjgebt/logs/debug.log
+2024-11-24 06:36:34,394 INFO    MainThread:2517 [wandb_init.py:_log_setup():534] Logging internal logs to /home/jiang/RL/mvp-master/wandb/run-20241124_063634-yqhjgebt/logs/debug-internal.log
+2024-11-24 06:36:34,395 INFO    MainThread:2517 [wandb_init.py:init():619] calling init triggers
+2024-11-24 06:36:34,395 INFO    MainThread:2517 [wandb_init.py:init():626] wandb.init called with sweep_config: {}
+config: {}
+2024-11-24 06:36:34,395 INFO    MainThread:2517 [wandb_init.py:init():669] starting backend
+2024-11-24 06:36:34,395 INFO    MainThread:2517 [wandb_init.py:init():673] sending inform_init request
+2024-11-24 06:36:34,396 INFO    MainThread:2517 [backend.py:_multiprocessing_setup():104] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2024-11-24 06:36:34,397 INFO    MainThread:2517 [wandb_init.py:init():686] backend started and connected
+2024-11-24 06:36:34,402 INFO    MainThread:2517 [wandb_init.py:init():781] updated telemetry
+2024-11-24 06:36:34,420 INFO    MainThread:2517 [wandb_init.py:init():814] communicating run to backend with 90.0 second timeout
+2024-11-24 06:36:34,870 INFO    MainThread:2517 [wandb_init.py:init():867] starting run threads in backend
+2024-11-24 06:36:34,930 INFO    MainThread:2517 [wandb_run.py:_console_start():2456] atexit reg
+2024-11-24 06:36:34,930 INFO    MainThread:2517 [wandb_run.py:_redirect():2305] redirect: wrap_raw
+2024-11-24 06:36:34,930 INFO    MainThread:2517 [wandb_run.py:_redirect():2370] Wrapping output streams.
+2024-11-24 06:36:34,930 INFO    MainThread:2517 [wandb_run.py:_redirect():2395] Redirects installed.
+2024-11-24 06:36:34,932 INFO    MainThread:2517 [wandb_init.py:init():911] run started, returning control to user process
