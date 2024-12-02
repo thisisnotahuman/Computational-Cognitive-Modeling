@@ -307,7 +307,8 @@ class ActorCritic(nn.Module):
         actions_shape,
         initial_std,
         encoder_cfg,
-        policy_cfg
+        policy_cfg,
+        net_type
     ):
         super(ActorCritic, self).__init__()
         assert encoder_cfg is None
@@ -315,26 +316,28 @@ class ActorCritic(nn.Module):
         actor_hidden_dim = policy_cfg['pi_hid_sizes']
         critic_hidden_dim = policy_cfg['vf_hid_sizes']
         activation = nn.SELU()
-
+        
+        self.net_type = net_type
         # Policy
+        if self.net_type == "ann":
         # ANN
-        # actor_layers = []
-        # actor_layers.append(nn.Linear(*obs_shape, actor_hidden_dim[0]))
-        # actor_layers.append(activation)
-        # for l in range(len(actor_hidden_dim)):
-        #     if l == len(actor_hidden_dim) - 1:
-        #         actor_layers.append(nn.Linear(actor_hidden_dim[l], *actions_shape))
-        #     else:
-        #         actor_layers.append(nn.Linear(actor_hidden_dim[l], actor_hidden_dim[l + 1]))
-        #         actor_layers.append(activation)
-        # self.actor = nn.Sequential(*actor_layers)
+            actor_layers = []
+            actor_layers.append(nn.Linear(*obs_shape, actor_hidden_dim[0]))
+            actor_layers.append(activation)
+            for l in range(len(actor_hidden_dim)):
+                if l == len(actor_hidden_dim) - 1:
+                    actor_layers.append(nn.Linear(actor_hidden_dim[l], *actions_shape))
+                else:
+                    actor_layers.append(nn.Linear(actor_hidden_dim[l], actor_hidden_dim[l + 1]))
+                    actor_layers.append(activation)
+            self.actor = nn.Sequential(*actor_layers)
 
-        # print("check obs_shape!!!", obs_shape, *obs_shape)
-        # print("check actions_shape!!!", actions_shape, *actions_shape)
-
-        # SNN
-        self.actor = PopSpikeActor(*obs_shape, *actions_shape, 10, 10, actor_hidden_dim, (-5, 5), math.sqrt(0.15),
-                                       spike_ts=5, device="cuda")
+            print("check obs_shape!!!", obs_shape, *obs_shape)
+            print("check actions_shape!!!", actions_shape, *actions_shape)
+        elif self.net_type == "snn":
+            # SNN
+            self.actor = PopSpikeActor(*obs_shape, *actions_shape, 10, 10, actor_hidden_dim, (-5, 5), math.sqrt(0.15),
+                                        spike_ts=5, device="cuda")
 
         # Value function
         critic_layers = []
@@ -360,10 +363,12 @@ class ActorCritic(nn.Module):
         critic_weights = [np.sqrt(2)] * len(critic_hidden_dim)
         critic_weights.append(1.0)
 
-        # ANN
-        # self.init_weights(self.actor, actor_weights)
-
-        self.init_weights(self.critic, critic_weights)
+        if self.net_type == "ann":
+            # ANN
+            self.init_weights(self.actor, actor_weights)
+        elif self.net_type == "snn":
+            # SNN
+            self.init_weights(self.critic, critic_weights)
 
     @staticmethod
     def init_weights(sequential, scales):
@@ -372,10 +377,12 @@ class ActorCritic(nn.Module):
 
     @torch.no_grad()
     def act(self, observations, states):
-        # ANN
-        # actions_mean = self.actor(observations)
-        # SNN
-        actions_mean, _ = self.actor(observations)
+        if self.net_type == "ann":
+            # ANN
+            actions_mean = self.actor(observations)
+        elif self.net_type == "snn":
+            # SNN
+            actions_mean, _ = self.actor(observations)
 
         covariance = torch.diag(self.log_std.exp() * self.log_std.exp())
         # print("actions_mean", actions_mean.shape, actions_mean)
@@ -398,17 +405,22 @@ class ActorCritic(nn.Module):
 
     @torch.no_grad()
     def act_inference(self, observations, states=None):
-        # ANN
-        # actions_mean = self.actor(observations)
-        # SNN
-        actions_mean, _ = self.actor(observations)
+        if self.net_type == "ann":
+            # ANN
+            actions_mean = self.actor(observations)
+        elif self.net_type == "snn":
+            # SNN
+            actions_mean, _ = self.actor(observations)
+            
         return actions_mean
 
     def forward(self, observations, states, actions):
-        # ANN
-        # actions_mean = self.actor(observations)
-        # SNN
-        actions_mean, _ = self.actor(observations)
+        if self.net_type == "ann":
+            # ANN
+            actions_mean = self.actor(observations)
+        elif self.net_type == "snn":
+            # SNN
+            actions_mean, _ = self.actor(observations)
 
         covariance = torch.diag(self.log_std.exp() * self.log_std.exp())
         distribution = MultivariateNormal(actions_mean, scale_tril=covariance)

@@ -12,8 +12,6 @@ learn:
   save_interval: 50
   print_log: True
 
-  max_iterations: 2000
-
   cliprange: 0.1
   ent_coef: 0
   nsteps: 32

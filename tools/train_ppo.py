@@ -38,8 +38,13 @@ def train(cfg: omegaconf.DictConfig):
     env = parse_task(cfg, cfg_dict, sim_params)
 
     # Perform training
+    if cfg.net_type == "snn":
+        max_iterations = cfg.snn_max_iterations
+    elif cfg.net_type == "ann":
+        max_iterations = cfg.ann_max_iterations
+        
     ppo = process_ppo(env, cfg, cfg_dict, cfg.logdir, cfg.cptdir)
-    ppo.run(num_learning_iterations=cfg.train.learn.max_iterations, log_interval=cfg.train.learn.save_interval)
+    ppo.run(num_learning_iterations=max_iterations, log_interval=cfg.train.learn.save_interval)
 
 
 if __name__ == '__main__':

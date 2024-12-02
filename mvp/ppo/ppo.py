@@ -5,6 +5,7 @@
 import os
 import math
 import time
+import shutil
 
 from gym.spaces import Space
 
@@ -19,8 +20,7 @@ from torch.utils.tensorboard import SummaryWriter
 from mvp.ppo import RolloutStorage
 
 import wandb
-wandb.init(project="franka_pick_snn")
-# wandb.init(project="franka_pick_ann")
+
 
 class PPO:
 
@@ -49,9 +49,12 @@ class PPO:
         is_testing=False,
         print_log=True,
         apply_reset=False,
-        num_gpus=1
+        num_gpus=1,
+        net_type="snn",
+        task_name="franka_pick",
     ):
-
+        self.init_time = time.strftime("%Y-%m-%d_%H-%M-%S")
+        
         if not isinstance(vec_env.observation_space, Space):
             raise TypeError("vec_env.observation_space must be a gym Space")
         if not isinstance(vec_env.state_space, Space):
@@ -67,6 +70,13 @@ class PPO:
 
         self.device = device
         self.num_gpus = num_gpus
+        self.net_type = net_type
+        self.task_name = task_name
+        
+        wandb.init(
+            project=f"{self.task_name}_{self.net_type}",
+            name = self.init_time
+            )
 
         self.schedule = schedule
         self.step_size_init = learning_rate
@@ -80,7 +90,8 @@ class PPO:
             self.action_space.shape,
             init_noise_std,
             encoder_cfg,
-            policy_cfg
+            policy_cfg,
+            self.net_type
         )
         self.actor_critic.to(self.device)
 
@@ -112,22 +123,25 @@ class PPO:
         self.use_clipped_value_loss = use_clipped_value_loss
 
         # Logging fields
-        self.log_dir = log_dir
+        self.log_dir_with_time = log_dir + "/" + self.init_time
+        os.makedirs(self.log_dir_with_time, exist_ok=True)
+        shutil.copy(os.path.join(log_dir, "config.yaml"), os.path.join(self.log_dir_with_time, "config.yaml"))
         self.tot_timesteps = 0
         self.tot_time = 0
         self.is_testing = is_testing
         self.current_learning_iteration = 0
+        self.best_mean_reward = -1e6
 
         # Single-gpu logging
         if self.num_gpus == 1:
             self.print_log = print_log
-            self.writer = SummaryWriter(log_dir=self.log_dir, flush_secs=10) if not is_testing else None
+            self.writer = SummaryWriter(log_dir=self.log_dir_with_time, flush_secs=10) if not is_testing else None
 
         # Multi-gpu logging
         if self.num_gpus > 1:
             if torch.distributed.get_rank() == 0:
                 self.print_log = print_log
-                self.writer = SummaryWriter(log_dir=self.log_dir, flush_secs=10)
+                self.writer = SummaryWriter(log_dir=self.log_dir_with_time, flush_secs=10)
             else:
                 self.print_log = False
                 self.writer = None
@@ -264,15 +278,19 @@ class PPO:
                         it, num_learning_iterations, collection_time, learn_time, mean_value_loss, mean_surrogate_loss,
                         mean_trajectory_length, mean_reward, rewbuffer_mean, lenbuffer_mean, successbuffer_mean
                     )
-                if self.print_log and it % log_interval == 0:
-                    self.save(os.path.join(self.log_dir, 'model_{}.pt'.format(it)))
+                # if self.print_log and it % log_interval == 0:
+                if self.print_log and rewbuffer_mean > self.best_mean_reward:
+                    self.best_mean_reward = rewbuffer_mean
+                    model_name = f'model_{self.task_name}_{self.net_type}_{it}_{rewbuffer_mean:.4e}.pt'
+                    self.save(os.path.join(self.log_dir_with_time, model_name))
 
                 # Use an explicit sync point since we are not syncing stats yet
                 if self.num_gpus > 1:
                     torch.distributed.barrier()
 
             if self.print_log:
-                self.save(os.path.join(self.log_dir, 'model_{}.pt'.format(num_learning_iterations)))
+                model_name = f'model_{self.task_name}_{self.net_type}_{num_learning_iterations}(final)_{rewbuffer_mean:.4e}.pt'
+                self.save(os.path.join(self.log_dir_with_time, model_name))
                 self.writer.close()
 
     def log(

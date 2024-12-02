@@ -6,13 +6,22 @@ rl_device: "cuda:0"
 graphics_device_id: 0
 num_gpus: 1
 
+# 1.Change net_type
+net_type: "ann"
+# 2.Change logdir
+logdir: "./log/FrankaPick_ann"
+
+snn_max_iterations: 20000
+ann_max_iterations: 2000
+
 test: False
 resume: 0
-logdir: "/home/jiang/RL/mvp-master/log/snn"
+
 cptdir: ""
 headless: True
 
 defaults:
+# 3.Change task
   - task: FrankaPick
   - train: ${task}
   - hydra/job_logging: disabled
