@@ -9,9 +9,9 @@ num_gpus: 1
 # 1.Change net_type
 net_type: "ann"
 # 2.Change logdir
-logdir: "./log/FrankaPick_ann"
+logdir: "./log/KukaPick_ann"
 
-snn_max_iterations: 20000
+snn_max_iterations: 200000
 ann_max_iterations: 2000
 
 test: False
@@ -22,7 +22,7 @@ headless: True
 
 defaults:
 # 3.Change task
-  - task: FrankaPick
+  - task: KukaPick
   - train: ${task}
   - hydra/job_logging: disabled
 

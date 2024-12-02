@@ -366,9 +366,8 @@ class ActorCritic(nn.Module):
         if self.net_type == "ann":
             # ANN
             self.init_weights(self.actor, actor_weights)
-        elif self.net_type == "snn":
-            # SNN
-            self.init_weights(self.critic, critic_weights)
+        
+        self.init_weights(self.critic, critic_weights)
 
     @staticmethod
     def init_weights(sequential, scales):

@@ -1,0 +1,16 @@
+{"time":"2024-12-02T02:05:52.355425636-05:00","level":"INFO","msg":"using version","core version":"0.18.7"}
+{"time":"2024-12-02T02:05:52.355443755-05:00","level":"INFO","msg":"created symlink","path":"/home/tb1/ccmfinal/Computational-Cognitive-Modeling/wandb/run-20241202_020552-2dnfod1x/logs/debug-core.log"}
+{"time":"2024-12-02T02:05:52.528247835-05:00","level":"INFO","msg":"created new stream","id":"2dnfod1x"}
+{"time":"2024-12-02T02:05:52.528271917-05:00","level":"INFO","msg":"stream: started","id":"2dnfod1x"}
+{"time":"2024-12-02T02:05:52.528296769-05:00","level":"INFO","msg":"writer: Do: started","stream_id":"2dnfod1x"}
+{"time":"2024-12-02T02:05:52.528343954-05:00","level":"INFO","msg":"handler: started","stream_id":"2dnfod1x"}
+{"time":"2024-12-02T02:05:52.528364898-05:00","level":"INFO","msg":"sender: started","stream_id":"2dnfod1x"}
+{"time":"2024-12-02T02:05:52.743063185-05:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-12-02T02:22:17.462929072-05:00","level":"INFO","msg":"stream: closing","id":"2dnfod1x"}
+{"time":"2024-12-02T02:22:17.462943749-05:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-12-02T02:22:17.463438008-05:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-12-02T02:22:18.832884296-05:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-12-02T02:22:18.965038088-05:00","level":"INFO","msg":"handler: closed","stream_id":"2dnfod1x"}
+{"time":"2024-12-02T02:22:18.965111182-05:00","level":"INFO","msg":"writer: Close: closed","stream_id":"2dnfod1x"}
+{"time":"2024-12-02T02:22:18.965166346-05:00","level":"INFO","msg":"sender: closed","stream_id":"2dnfod1x"}
+{"time":"2024-12-02T02:22:18.965217321-05:00","level":"INFO","msg":"stream: closed","id":"2dnfod1x"}

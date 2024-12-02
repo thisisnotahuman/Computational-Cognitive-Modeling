@@ -1,0 +1,83 @@
+task:
+  name: FrankaPick
+  env:
+    numEnvs: 256
+    envSpacing: 1.5
+    episodeLength: 500
+    object_pos_init:
+    - 0.5
+    - 0.0
+    object_pos_delta:
+    - 0.1
+    - 0.2
+    goal_height: 0.8
+    obs_type: oracle
+    dofVelocityScale: 0.1
+    actionScale: 7.5
+    objectDistRewardScale: 0.08
+    liftBonusRewardScale: 4.0
+    goalDistRewardScale: 1.28
+    goalBonusRewardScale: 4.0
+    actionPenaltyScale: 0.01
+    asset:
+      assetRoot: assets
+      assetFileNameFranka: urdf/franka_description/robots/franka_panda.urdf
+  sim:
+    substeps: 1
+    physx:
+      num_threads: 4
+      solver_type: 1
+      num_position_iterations: 12
+      num_velocity_iterations: 1
+      contact_offset: 0.005
+      rest_offset: 0.0
+      bounce_threshold_velocity: 0.2
+      max_depenetration_velocity: 1000.0
+      default_buffer_size_multiplier: 5.0
+      always_use_articulations: false
+  task:
+    randomize: false
+train:
+  seed: 0
+  torch_deterministic: false
+  policy:
+    pi_hid_sizes:
+    - 256
+    - 128
+    - 64
+    vf_hid_sizes:
+    - 256
+    - 128
+    - 64
+  learn:
+    agent_name: franka_ppo
+    test: false
+    resume: 0
+    save_interval: 50
+    print_log: true
+    cliprange: 0.1
+    ent_coef: 0
+    nsteps: 32
+    noptepochs: 10
+    nminibatches: 4
+    max_grad_norm: 1
+    optim_stepsize: 0.001
+    schedule: cos
+    gamma: 0.99
+    lam: 0.95
+    init_noise_std: 1.0
+    log_interval: 1
+physics_engine: physx
+pipeline: gpu
+sim_device: cuda:0
+rl_device: cuda:0
+graphics_device_id: 0
+num_gpus: 1
+net_type: snn
+logdir: ./log/FrankaPick_snn
+snn_max_iterations: 200000
+ann_max_iterations: 2000
+test: false
+resume: 0
+cptdir: ''
+headless: true
