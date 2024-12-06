@@ -55,13 +55,14 @@ train:
     resume: 0
     save_interval: 50
     print_log: true
+    max_iterations: 2000
     cliprange: 0.1
     ent_coef: 0
     nsteps: 32
     noptepochs: 10
     nminibatches: 4
     max_grad_norm: 1
-    optim_stepsize: 0.001
+    optim_stepsize: 0.0001
     schedule: cos
     gamma: 0.99
     lam: 0.95
@@ -75,7 +76,7 @@ graphics_device_id: 0
 num_gpus: 1
 net_type: snn
 logdir: ./log/FrankaPick_snn
-snn_max_iterations: 200000
+snn_max_iterations: 4000
 ann_max_iterations: 2000
 test: false
 resume: 0
