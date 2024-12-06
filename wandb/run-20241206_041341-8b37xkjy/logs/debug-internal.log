@@ -1,0 +1,17 @@
+{"time":"2024-12-06T04:13:41.685064111-05:00","level":"INFO","msg":"using version","core version":"0.18.7"}
+{"time":"2024-12-06T04:13:41.685087764-05:00","level":"INFO","msg":"created symlink","path":"/home/tb1/ccmfinal/Computational-Cognitive-Modeling/wandb/run-20241206_041341-8b37xkjy/logs/debug-core.log"}
+{"time":"2024-12-06T04:13:41.894826474-05:00","level":"INFO","msg":"created new stream","id":"8b37xkjy"}
+{"time":"2024-12-06T04:13:41.894852056-05:00","level":"INFO","msg":"stream: started","id":"8b37xkjy"}
+{"time":"2024-12-06T04:13:41.894925653-05:00","level":"INFO","msg":"writer: Do: started","stream_id":"8b37xkjy"}
+{"time":"2024-12-06T04:13:41.894939174-05:00","level":"INFO","msg":"handler: started","stream_id":"8b37xkjy"}
+{"time":"2024-12-06T04:13:41.894961872-05:00","level":"INFO","msg":"sender: started","stream_id":"8b37xkjy"}
+{"time":"2024-12-06T04:13:42.112030107-05:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-12-06T04:54:27.384924483-05:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/tb1-new-york-university/FrankaPick_snn/8b37xkjy/file_stream\": dial tcp 35.186.228.49:443: connect: network is unreachable"}
+{"time":"2024-12-06T05:43:37.768269574-05:00","level":"INFO","msg":"stream: closing","id":"8b37xkjy"}
+{"time":"2024-12-06T05:43:37.768313061-05:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-12-06T05:43:37.769012701-05:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-12-06T05:43:38.397700646-05:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-12-06T05:43:38.507575412-05:00","level":"INFO","msg":"handler: closed","stream_id":"8b37xkjy"}
+{"time":"2024-12-06T05:43:38.50759721-05:00","level":"INFO","msg":"writer: Close: closed","stream_id":"8b37xkjy"}
+{"time":"2024-12-06T05:43:38.507706078-05:00","level":"INFO","msg":"sender: closed","stream_id":"8b37xkjy"}
+{"time":"2024-12-06T05:43:38.507734618-05:00","level":"INFO","msg":"stream: closed","id":"8b37xkjy"}

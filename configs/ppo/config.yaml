@@ -7,11 +7,11 @@ graphics_device_id: 0
 num_gpus: 1
 
 # 1.Change net_type
-net_type: "ann"
+net_type: "snn"
 # 2.Change logdir
-logdir: "./log/KukaPick_ann"
+logdir: "./log/KukaPick_snn"
 
-snn_max_iterations: 200000
+snn_max_iterations: 4000
 ann_max_iterations: 2000
 
 test: False

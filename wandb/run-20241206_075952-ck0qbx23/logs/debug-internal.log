@@ -1,0 +1,16 @@
+{"time":"2024-12-06T07:59:52.553931738-05:00","level":"INFO","msg":"using version","core version":"0.18.7"}
+{"time":"2024-12-06T07:59:52.55394908-05:00","level":"INFO","msg":"created symlink","path":"/home/tb1/ccmfinal/Computational-Cognitive-Modeling/wandb/run-20241206_075952-ck0qbx23/logs/debug-core.log"}
+{"time":"2024-12-06T07:59:52.690044122-05:00","level":"INFO","msg":"created new stream","id":"ck0qbx23"}
+{"time":"2024-12-06T07:59:52.690075202-05:00","level":"INFO","msg":"stream: started","id":"ck0qbx23"}
+{"time":"2024-12-06T07:59:52.69011298-05:00","level":"INFO","msg":"writer: Do: started","stream_id":"ck0qbx23"}
+{"time":"2024-12-06T07:59:52.690184295-05:00","level":"INFO","msg":"handler: started","stream_id":"ck0qbx23"}
+{"time":"2024-12-06T07:59:52.690192829-05:00","level":"INFO","msg":"sender: started","stream_id":"ck0qbx23"}
+{"time":"2024-12-06T07:59:52.835050131-05:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-12-06T09:28:50.800018719-05:00","level":"INFO","msg":"stream: closing","id":"ck0qbx23"}
+{"time":"2024-12-06T09:28:50.800048434-05:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-12-06T09:28:50.80069-05:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-12-06T09:28:51.294017836-05:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-12-06T09:28:51.420818279-05:00","level":"INFO","msg":"handler: closed","stream_id":"ck0qbx23"}
+{"time":"2024-12-06T09:28:51.420847284-05:00","level":"INFO","msg":"sender: closed","stream_id":"ck0qbx23"}
+{"time":"2024-12-06T09:28:51.420831585-05:00","level":"INFO","msg":"writer: Close: closed","stream_id":"ck0qbx23"}
+{"time":"2024-12-06T09:28:51.420915276-05:00","level":"INFO","msg":"stream: closed","id":"ck0qbx23"}

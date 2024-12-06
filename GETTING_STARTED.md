@@ -16,14 +16,14 @@ This document provides brief installation and training instructions.
 Create a conda environment:
 
 ```
-conda create -n mvp python=3.7
+conda create -n mvp python=3.8
 conda activate mvp
 ```
 
 Install [PyTorch](https://pytorch.org/get-started/locally/):
 
 ```
-conda install pytorch torchvision -c pytorch
+pip3 install torch torchvision torchaudio
 ```
 
 For RL experiments, install [IsaacGym](https://developer.nvidia.com/isaac-gym):

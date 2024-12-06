@@ -37,7 +37,7 @@ class PPO:
         init_noise_std=1.0,
         value_loss_coef=1.0,
         entropy_coef=0.0,
-        learning_rate=1e-3,
+        learning_rate=1e-4,
         max_grad_norm=0.5,
         use_clipped_value_loss=True,
         schedule="fixed",

@@ -336,8 +336,22 @@ class ActorCritic(nn.Module):
             print("check actions_shape!!!", actions_shape, *actions_shape)
         elif self.net_type == "snn":
             # SNN
-            self.actor = PopSpikeActor(*obs_shape, *actions_shape, 10, 10, actor_hidden_dim, (-5, 5), math.sqrt(0.15),
-                                        spike_ts=5, device="cuda")
+            # 从前往后依次
+            # population mean范围（绝对值在1到10之间调（5附近比较好））、
+            # 0.15在0.1~0.25之间调整、
+            # spike_ts在5~20之间调整（越大越慢，但是越拟合ann）。
+            # 最后ppo.py里主要就是调整学习率learning rate，
+            # 我的经验是snn要比ann小十倍左右，也就是在1e-4附近调整
+            # self.actor = PopSpikeActor(*obs_shape, *actions_shape, 10, 10, actor_hidden_dim, (-5, 5), math.sqrt(0.15),
+            #                             spike_ts=10, device="cuda")
+            # self.actor = PopSpikeActor(*obs_shape, *actions_shape, 10, 10, actor_hidden_dim, (-5, 5), math.sqrt(0.21),
+            #                             spike_ts=15, device="cuda")
+            # self.actor = PopSpikeActor(*obs_shape, *actions_shape, 10, 10, actor_hidden_dim, (-5, 5), math.sqrt(0.14),
+            #                             spike_ts=10, device="cuda")
+            # self.actor = PopSpikeActor(*obs_shape, *actions_shape, 10, 10, actor_hidden_dim, (-5, 5), math.sqrt(0.16),
+            #                             spike_ts=10, device="cuda")
+            self.actor = PopSpikeActor(*obs_shape, *actions_shape, 10, 10, actor_hidden_dim, (-5.5, 5.5), math.sqrt(0.15),
+                                        spike_ts=10, device="cuda")
 
         # Value function
         critic_layers = []

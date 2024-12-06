@@ -20,7 +20,7 @@ learn:
   noptepochs: 10
   nminibatches: 4
   max_grad_norm: 1
-  optim_stepsize: 0.001
+  optim_stepsize: 1e-4
   schedule: cos
   gamma: 0.99
   lam: 0.95
