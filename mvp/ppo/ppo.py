@@ -20,7 +20,9 @@ from torch.utils.tensorboard import SummaryWriter
 from mvp.ppo import RolloutStorage
 
 import wandb
-
+### Feifan Note: Initialization has been moved to the init function of PPO class
+# wandb.init(project="franka_pick_snn")
+# wandb.init(project="franka_pick_ann")
 
 class PPO:
 
@@ -73,6 +75,7 @@ class PPO:
         self.net_type = net_type
         self.task_name = task_name
         
+        # Wandb initialization here!
         wandb.init(
             project=f"{self.task_name}_{self.net_type}",
             name = self.init_time
@@ -279,11 +282,12 @@ class PPO:
                         mean_trajectory_length, mean_reward, rewbuffer_mean, lenbuffer_mean, successbuffer_mean
                     )
                 # if self.print_log and it % log_interval == 0:
+                #     self.save(os.path.join(self.log_dir_with_time, 'model_{}.pt'.format(it)))
                 if self.print_log and rewbuffer_mean > self.best_mean_reward:
                     self.best_mean_reward = rewbuffer_mean
                     model_name = f'model_{self.task_name}_{self.net_type}_{it}_{rewbuffer_mean:.4e}.pt'
                     self.save(os.path.join(self.log_dir_with_time, model_name))
-
+                
                 # Use an explicit sync point since we are not syncing stats yet
                 if self.num_gpus > 1:
                     torch.distributed.barrier()
@@ -292,7 +296,7 @@ class PPO:
                 model_name = f'model_{self.task_name}_{self.net_type}_{num_learning_iterations}(final)_{rewbuffer_mean:.4e}.pt'
                 self.save(os.path.join(self.log_dir_with_time, model_name))
                 self.writer.close()
-
+                
     def log(
         self, it, num_learning_iterations, collection_time, learn_time, mean_value_loss, mean_surrogate_loss,
         mean_trajectory_length, mean_reward, rewbuffer_mean, lenbuffer_mean, successbuffer_mean, width=80, pad=35

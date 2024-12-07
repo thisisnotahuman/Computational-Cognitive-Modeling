@@ -316,11 +316,14 @@ class ActorCritic(nn.Module):
         actor_hidden_dim = policy_cfg['pi_hid_sizes']
         critic_hidden_dim = policy_cfg['vf_hid_sizes']
         activation = nn.SELU()
-        
+
+        # print("check obs_shape!!!", obs_shape, *obs_shape)
+        # print("check actions_shape!!!", actions_shape, *actions_shape)
+
         self.net_type = net_type
         # Policy
         if self.net_type == "ann":
-        # ANN
+            # ANN
             actor_layers = []
             actor_layers.append(nn.Linear(*obs_shape, actor_hidden_dim[0]))
             actor_layers.append(activation)
@@ -331,26 +334,9 @@ class ActorCritic(nn.Module):
                     actor_layers.append(nn.Linear(actor_hidden_dim[l], actor_hidden_dim[l + 1]))
                     actor_layers.append(activation)
             self.actor = nn.Sequential(*actor_layers)
-
-            print("check obs_shape!!!", obs_shape, *obs_shape)
-            print("check actions_shape!!!", actions_shape, *actions_shape)
         elif self.net_type == "snn":
             # SNN
-            # 从前往后依次
-            # population mean范围（绝对值在1到10之间调（5附近比较好））、
-            # 0.15在0.1~0.25之间调整、
-            # spike_ts在5~20之间调整（越大越慢，但是越拟合ann）。
-            # 最后ppo.py里主要就是调整学习率learning rate，
-            # 我的经验是snn要比ann小十倍左右，也就是在1e-4附近调整
-            # self.actor = PopSpikeActor(*obs_shape, *actions_shape, 10, 10, actor_hidden_dim, (-5, 5), math.sqrt(0.15),
-            #                             spike_ts=10, device="cuda")
-            # self.actor = PopSpikeActor(*obs_shape, *actions_shape, 10, 10, actor_hidden_dim, (-5, 5), math.sqrt(0.21),
-            #                             spike_ts=15, device="cuda")
-            # self.actor = PopSpikeActor(*obs_shape, *actions_shape, 10, 10, actor_hidden_dim, (-5, 5), math.sqrt(0.14),
-            #                             spike_ts=10, device="cuda")
-            # self.actor = PopSpikeActor(*obs_shape, *actions_shape, 10, 10, actor_hidden_dim, (-5, 5), math.sqrt(0.16),
-            #                             spike_ts=10, device="cuda")
-            self.actor = PopSpikeActor(*obs_shape, *actions_shape, 10, 10, actor_hidden_dim, (-5.5, 5.5), math.sqrt(0.15),
+            self.actor = PopSpikeActor(*obs_shape, *actions_shape, 10, 10, actor_hidden_dim, (-5, 5), math.sqrt(0.15),
                                         spike_ts=10, device="cuda")
 
         # Value function
@@ -380,7 +366,7 @@ class ActorCritic(nn.Module):
         if self.net_type == "ann":
             # ANN
             self.init_weights(self.actor, actor_weights)
-        
+
         self.init_weights(self.critic, critic_weights)
 
     @staticmethod
@@ -393,12 +379,13 @@ class ActorCritic(nn.Module):
         if self.net_type == "ann":
             # ANN
             actions_mean = self.actor(observations)
+            covariance = torch.diag(self.log_std.exp() * self.log_std.exp())
         elif self.net_type == "snn":
             # SNN
-            actions_mean, _ = self.actor(observations)
-
-        covariance = torch.diag(self.log_std.exp() * self.log_std.exp())
+            actions_mean, std = self.actor(observations)
+            covariance = torch.diag(std.exp() * std.exp())
         # print("actions_mean", actions_mean.shape, actions_mean)
+
         distribution = MultivariateNormal(actions_mean, scale_tril=covariance)
 
         # print("",)
@@ -407,14 +394,26 @@ class ActorCritic(nn.Module):
 
         value = self.critic(observations)
 
-        return (
-            actions.detach(),
-            actions_log_prob.detach(),
-            value.detach(),
-            actions_mean.detach(),
-            self.log_std.repeat(actions_mean.shape[0], 1).detach(),
-            None,  # dummy placeholder
-        )
+        if self.net_type == "ann":
+            # ANN
+            return (
+                actions.detach(),
+                actions_log_prob.detach(),
+                value.detach(),
+                actions_mean.detach(),
+                self.log_std.repeat(actions_mean.shape[0], 1).detach(),
+                None,  # dummy placeholder
+            )
+        elif self.net_type == "snn":
+            # SNN
+            return (
+                actions.detach(),
+                actions_log_prob.detach(),
+                value.detach(),
+                actions_mean.detach(),
+                std.repeat(actions_mean.shape[0], 1).detach(),
+                None,  # dummy placeholder
+            )
 
     @torch.no_grad()
     def act_inference(self, observations, states=None):
@@ -431,11 +430,17 @@ class ActorCritic(nn.Module):
         if self.net_type == "ann":
             # ANN
             actions_mean = self.actor(observations)
+            covariance = torch.diag(self.log_std.exp() * self.log_std.exp())
         elif self.net_type == "snn":
             # SNN
-            actions_mean, _ = self.actor(observations)
+            actions_mean, std = self.actor(observations)
+            covariance = torch.diag(std.exp() * std.exp())
 
-        covariance = torch.diag(self.log_std.exp() * self.log_std.exp())
+        # print("actions_mean_max", torch.max(actions_mean))
+        # print("actions_mean_min", torch.min(actions_mean))
+        # print("actions_mean", 0.5*(torch.max(actions_mean)-torch.min(actions_mean)))
+        # print("std", std)
+
         distribution = MultivariateNormal(actions_mean, scale_tril=covariance)
 
         actions_log_prob = distribution.log_prob(actions)
@@ -443,7 +448,12 @@ class ActorCritic(nn.Module):
 
         value = self.critic(observations)
 
-        return actions_log_prob, entropy, value, actions_mean, self.log_std.repeat(actions_mean.shape[0], 1)
+        if self.net_type == "ann":
+            # ANN
+            return actions_log_prob, entropy, value, actions_mean, self.log_std.repeat(actions_mean.shape[0], 1)
+        elif self.net_type == "snn":
+            # SNN
+            return actions_log_prob, entropy, value, actions_mean, std.repeat(actions_mean.shape[0], 1)
 
 
 ###############################################################################
