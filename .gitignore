@@ -1,4 +1,6 @@
-log/
-wandb/
+log/*
+!log/.gitkeep
+wandb/*
+!wandb/.gitkeep
 mvp/ppo/actor_critic_backup.py
 mvp/ppo/ppo_backup.py
