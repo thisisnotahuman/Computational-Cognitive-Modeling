@@ -22,5 +22,5 @@
 
 
 # Useful Resources
-[Github Repo - List of Research Papers {LLMs in Robotics}](https://github.com/GT-RIPL/Awesome-LLM-Robotics)
-[Github Repo - List of Research Papers {MLLMs in Robotics}](https://github.com/jrin771/Everything-LLMs-And-Robotics)
+- [Github Repo - List of Research Papers](https://github.com/GT-RIPL/Awesome-LLM-Robotics) [LLMs in Robotics[ 
+- [Github Repo - List of Research Papers](https://github.com/jrin771/Everything-LLMs-And-Robotics) [MLLMs in Robotics]
