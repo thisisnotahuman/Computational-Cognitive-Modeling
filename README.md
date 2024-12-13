@@ -16,11 +16,11 @@
 |*"[A LITTLE LESS CONVERSATION, A LITTLE MORE ACTION, PLEASE: INVESTIGATING THE PHYSICAL COMMON-SENSE OF LLMS IN A 3D EMBODIED ENVIRONMENT](https://arxiv.org/abs/2410.23242)"*|LLM|various tasks|[code(only Animal-Ai)](https://github.com/Kinds-of-Intelligence-CFI/animal-ai)|
 |*"[ExploRLLM: Guiding Exploration in Reinforcement Learning with Large Language Models](https://arxiv.org/abs/2403.09583)"*|RL/LLM|grab objects|[code/video](https://explorllm.github.io/)|
 |*"[Agentic Skill Discovery](https://arxiv.org/abs/2405.15019)"*|RL/LLM|various tasks|[code/video](https://agentic-skill-discovery.github.io/)|
-| *[PLAN-SEQ-LEARN](https://arxiv.org/pdf/2405.01534)* | RL/LLM | Various tasks | [code/video](https://mihdalal.github.io/planseqlearn/) |
-|[Task and Motion Planning with Large Language Models for Object Rearrangement](https://arxiv.org/pdf/2303.06247) | | | | 
-| [Robotic Skill Acquisition via Instruction Augmentation with Vision-Language Models]| | | | 
+| *"[PLAN-SEQ-LEARN](https://arxiv.org/pdf/2405.01534)"* | RL/LLM | Various tasks | [code/video](https://mihdalal.github.io/planseqlearn/) |
+|*"[Task and Motion Planning with Large Language Models for Object Rearrangement](https://arxiv.org/pdf/2303.06247)"* | RL/LLM | Spatial Reasoning | [code/video](https://sites.google.com/view/llm-grop)| 
+| *"[Robotic Skill Acquisition via Instruction Augmentation with Vision-Language Models](https://arxiv.org/pdf/2211.11736)"*| RL/LLM | Move/Grab | [code/video](https://instructionaugmentation.github.io) | 
 
 
 # Useful Resources
-[Github Repo - LLM in Robotics](https://github.com/GT-RIPL/Awesome-LLM-Robotics)
-[Github Repo - LLM in Robotics]
+[Github Repo - List of Research Papers {LLMs in Robotics}](https://github.com/GT-RIPL/Awesome-LLM-Robotics)
+[Github Repo - List of Research Papers {MLLMs in Robotics}](https://github.com/jrin771/Everything-LLMs-And-Robotics)
